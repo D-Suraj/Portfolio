@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#090d12">
+    <meta name="color-scheme" content="dark">
+    <meta name="description" content="Suraj Desai is a software engineer building backend systems and practical AI applications with Python, RAG, APIs, authentication, and systems engineering.">
+    <meta name="author" content="Suraj Desai">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="{{ site_url }}/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site_url }}/">
+    <meta property="og:title" content="Suraj Desai | AI Application Engineer | Backend Developer">
+    <meta property="og:description" content="AI application engineer building retrieval systems, simulation tools and authenticated backend services.">
+    <meta property="og:image" content="{{ site_url }}/static/assets/og.png">
+    <meta property="og:image:alt" content="Suraj Desai — Backend systems. Practical AI.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Suraj Desai | AI Application Engineer | Backend Developer">
+    <meta name="twitter:description" content="AI application engineer building retrieval systems, simulation tools and authenticated backend services.">
+    <meta name="twitter:image" content="{{ site_url }}/static/assets/og.png">
+    <title>{% block title %}Suraj Desai | AI Application Engineer | Backend Developer{% endblock %}</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='assets/favicon.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {% block body %}{% endblock %}
+  </body>
+</html>

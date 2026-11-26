@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Page not found — Suraj Desai{% endblock %}
+{% block body %}
+<main class="error-page shell">
+  <div class="section-kicker">404 / Not found</div>
+  <h1>This route ends here.</h1>
+  <p>The page you requested does not exist.</p>
+  <a class="button primary" href="{{ url_for('index') }}">Return home</a>
+</main>
+{% endblock %}

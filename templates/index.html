@@ -1,0 +1,195 @@
+{% extends "base.html" %}
+
+{% block body %}
+<header class="site-header" data-header>
+  <nav class="nav shell" aria-label="Primary navigation">
+    <a class="brand" href="#top" aria-label="Suraj Desai, home"><span aria-hidden="true">SD</span><em>builds systems</em></a>
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="nav-links" data-menu-button><span class="sr-only">Toggle navigation</span><i></i><i></i></button>
+    <div class="nav-links" id="nav-links" data-nav-links>
+      <a href="#experience">Experience</a><a href="#projects">Projects</a><a href="#capabilities">Capabilities</a><a href="#contact">Contact</a><a class="nav-resume" href="{{ url_for('resume') }}" target="_blank">Resume ↗</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero shell" id="top">
+    <div class="hero-main reveal">
+      <div class="eyebrow"><span class="status-dot"></span> Backend · AI / LLM · Systems</div>
+      <h1>AI Application Engineer<br><span>Backend Developer</span></h1>
+      <p class="hero-copy">At Tetcos, I build AI tools that answer engineers’ questions with citations from protocol documentation and let them configure, run, and compare network simulations in plain English.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#projects">View projects <span>↓</span></a>
+        <a class="button" href="https://github.com/D-Suraj" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+        <a class="button" href="https://www.linkedin.com/in/suraj-desai-155a9a264/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a>
+        <a class="button" href="{{ url_for('resume') }}" target="_blank">Resume <span>↗</span></a>
+      </div>
+    </div>
+    <aside class="hero-aside reveal" aria-label="Current engineering focus">
+      <div class="aside-label">Engineering profile</div>
+      <dl>
+        <div><dt>Foundation</dt><dd>Backend engineering</dd></div>
+        <div><dt>Application</dt><dd>AI / LLM systems</dd></div>
+        <div><dt>Differentiator</dt><dd>Identity + protocols</dd></div>
+        <div><dt>Primary language</dt><dd>Python</dd></div>
+      </dl>
+    </aside>
+    <div class="system-line reveal" aria-label="Engineering focus: backend engineering leads to APIs and identity, practical AI, reliability, then systems and networking">
+      <span>Backend</span><i>→</i><span>APIs + microservices</span><i>→</i><span>OAuth + SSO</span><i>→</i><span>LLM / RAG</span><i>→</i><span>Evaluation</span><i>→</i><span>Protocols</span>
+    </div>
+  </section>
+
+  <section class="section shell" id="about">
+    <div class="section-kicker reveal">01 / About</div>
+    <div class="section-grid">
+      <h2 class="reveal">Software foundations before model demos.</h2>
+      <div class="prose reveal">
+        <p>I build useful AI applications on top of software foundations I can reason about: APIs, state, authentication, retrieval, validation, and deployment.</p>
+        <p>My work has moved across layers—from Python services and Keycloak policies to RAG pipelines and packet-level debugging. That range is useful when an AI feature fails for a reason that is actually in the data path, service boundary, identity flow, or underlying protocol.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell" id="experience">
+    <div class="section-kicker reveal">02 / Experience</div>
+    <div class="section-heading">
+      <h2 class="reveal">Professional experience</h2>
+      <p class="reveal">The strongest thread is not a single framework. It is building and debugging systems across backend, AI, identity, and networking boundaries.</p>
+    </div>
+    <div class="timeline">
+      {% for item in experience %}
+      <article class="timeline-item reveal">
+        <div class="timeline-marker" aria-hidden="true"><span></span></div>
+        <div class="timeline-period">{{ item.period }}</div>
+        <div class="timeline-body">
+          <h3>{{ item.role }}</h3><div class="organization">{{ item.organization }}</div><p>{{ item.summary }}</p>
+          {% if item.highlights %}<ul>{% for highlight in item.highlights %}<li>{{ highlight }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="section projects-section" id="projects">
+    <div class="shell">
+      <div class="section-kicker reveal">03 / Featured projects</div>
+      <div class="section-heading projects-heading"><h2 class="reveal">Selected projects</h2><p class="reveal">Public code where available; technical, non-confidential descriptions for professional work.</p></div>
+      <div class="filter-bar reveal" role="group" aria-label="Filter projects">
+        <button class="filter active" type="button" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter" type="button" data-filter="ai" aria-pressed="false">AI / RAG</button>
+        <button class="filter" type="button" data-filter="backend" aria-pressed="false">Backend / identity</button>
+        <button class="filter" type="button" data-filter="systems" aria-pressed="false">Systems</button>
+      </div>
+      <div class="project-list">
+        {% for project in projects %}
+        <article class="project-card reveal" data-project data-category="{{ project.category }}" id="{{ project.slug }}">
+          <div class="project-number">0{{ loop.index }}</div>
+          <div class="project-content">
+            <div class="project-meta"><span>{{ project.type }}</span><span>{{ project.source_note }}</span></div>
+            <h3>{{ project.name }}</h3><p class="project-summary">{{ project.summary }}</p>
+            <div class="project-columns"><div><h4>Problem</h4><p>{{ project.problem }}</p></div><div><h4>My contribution</h4><p>{{ project.contribution }}</p></div></div>
+            <div class="architecture" aria-label="{{ project.name }} architecture">{% for step in project.architecture %}<span>{{ step }}</span>{% if not loop.last %}<i aria-hidden="true">→</i>{% endif %}{% endfor %}</div>
+            <details><summary>Technical decision <span aria-hidden="true">+</span></summary><p>{{ project.decision }}</p></details>
+            <div class="project-footer">
+              <ul class="tag-list" aria-label="Technologies used">{% for technology in project.technologies %}<li>{{ technology }}</li>{% endfor %}</ul>
+              {% if project.repository %}<a class="text-link" href="{{ project.repository }}" target="_blank" rel="noreferrer">Repository ↗</a>{% else %}<span class="private-label">Proprietary / no verified public repository</span>{% endif %}
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell" id="ai-systems">
+    <div class="section-kicker reveal">04 / AI engineering</div>
+    <div class="section-grid">
+      <h2 class="reveal">I build systems around LLMs.</h2>
+      <div class="prose reveal"><p>The model is one component. The engineering work is in what surrounds it: how information is split, embedded, retrieved, assembled, validated, governed, and presented.</p><p>In my personal knowledge assistant, those concerns are visible in code. In NetSim AI, the same systems mindset extends to evaluation, structured output, prompt validation, guardrails, secure sessions, and enterprise deployment.</p></div>
+    </div>
+    <div class="pipeline reveal" aria-label="A practical retrieval augmented generation pipeline">
+      <div><span>01</span><strong>Ingest</strong><small>Docs · code · artifacts</small></div><i>→</i>
+      <div><span>02</span><strong>Represent</strong><small>Chunk · embed · store</small></div><i>→</i>
+      <div><span>03</span><strong>Retrieve</strong><small>Semantic top-k context</small></div><i>→</i>
+      <div><span>04</span><strong>Generate</strong><small>LLM with evidence</small></div><i>→</i>
+      <div><span>05</span><strong>Validate</strong><small>Structure · evaluate · guard</small></div>
+    </div>
+    <div class="principles-grid">
+      <article class="principle reveal"><span>Retrieval</span><h3>Ground the answer.</h3><p>Search relevant engineering context before generation instead of asking a model to rely on general memory.</p></article>
+      <article class="principle reveal"><span>Reliability</span><h3>Make failure visible.</h3><p>Use timeouts, retries, validation, structured output, and evaluation at explicit system boundaries.</p></article>
+      <article class="principle reveal"><span>Control</span><h3>Keep deterministic logic.</h3><p>Use ordinary software for identity, persistence, indexing, routing, and policy; reserve the LLM for language work.</p></article>
+    </div>
+  </section>
+
+  <section class="section backend-section" id="capabilities">
+    <div class="shell">
+      <div class="section-kicker reveal">05 / Backend & systems</div>
+      <div class="section-heading"><h2 class="reveal">Backend and systems engineering</h2><p class="reveal">The same foundation supports APIs, secure product access, LLM applications, deployment, and protocol debugging.</p></div>
+      <div class="capability-map reveal">
+        <div class="capability-core"><span>Core</span><strong>Python backend engineering</strong><small>Flask · REST APIs · microservices · SQL</small></div>
+        <div class="capability-branches">
+          <article><span>Identity</span><h3>OAuth 2.0 · OIDC · Keycloak · SSO</h3><p>Secure user and service access across enterprise authentication realms.</p></article>
+          <article><span>AI systems</span><h3>RAG · embeddings · evaluation · guardrails</h3><p>Retrieval and validation layers around LLM calls.</p></article>
+          <article><span>Delivery</span><h3>AWS · Docker · Git</h3><p>Configuration-driven applications without hardcoded secrets.</p></article>
+          <article><span>Low-level systems</span><h3>C / C++ · protocols · PCAP · Wireshark</h3><p>Trace application behavior down to packets and protocol implementation.</p></article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell" id="skills">
+    <div class="section-kicker reveal">06 / Technical skills</div>
+    <div class="skills-grid">{% for category, skills in skill_groups %}<article class="skill-group reveal"><h3>{{ category }}</h3><p>{% for skill in skills %}<span>{{ skill }}</span>{% endfor %}</p></article>{% endfor %}</div>
+  </section>
+
+  <section class="section github-section" id="github">
+    <div class="shell github-grid">
+      <div><div class="section-kicker reveal">07 / Curated GitHub</div><h2 class="reveal">One repository worth reading closely.</h2></div>
+      <article class="repo-card reveal">
+        <div class="repo-top"><span class="repo-icon" aria-hidden="true">&lt;/&gt;</span><span>Public · Python</span></div>
+        <h3>Personal Assistant - AI Knowledge Assistant</h3><p>Shows application structure beyond a notebook: separated configuration, persistence, embeddings, chunking, vector search, LLM calls, and UI.</p>
+        <ul><li>Custom semantic chunking with cosine-distance breakpoints</li><li>ChromaDB upserts with stable content-derived IDs and stale-chunk cleanup</li><li>SQLite metadata, configurable paths, request timeouts, and embedding retries</li></ul>
+        <div class="repo-actions"><a class="button primary" href="https://github.com/D-Suraj/Personal-assistant-LLM" target="_blank" rel="noreferrer">Read the code ↗</a><a class="button" href="https://github.com/D-Suraj" target="_blank" rel="noreferrer">GitHub profile ↗</a></div>
+        <p class="evidence-note">The other public repository contains early internship ML exercises and is intentionally not featured as representative backend/AI-systems work.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section shell" id="approach">
+    <div class="section-kicker reveal">08 / Engineering approach</div>
+    <div class="approach-grid">
+      <article class="reveal"><span>01</span><h3>Start with ground truth.</h3><p>Use retrieved source context, protocol traces, or packet captures before forming a theory about system behavior.</p></article>
+      <article class="reveal"><span>02</span><h3>Break across boundaries.</h3><p>Separate retrieval, identity, persistence, service, and model concerns so each failure can be isolated.</p></article>
+      <article class="reveal"><span>03</span><h3>Design the failure path.</h3><p>Timeouts, retries, validation, and controlled updates matter because external APIs and probabilistic outputs will fail.</p></article>
+      <article class="reveal"><span>04</span><h3>Debug to the layer that owns it.</h3><p>If a Python symptom originates in native code, authentication policy, or a network protocol, follow it there.</p></article>
+    </div>
+  </section>
+
+  <section class="section background-section" id="background">
+    <div class="shell background-grid">
+      <div><div class="section-kicker reveal">09 / Background</div><h2 class="reveal">Computer science, applied in products.</h2></div>
+      <div class="background-list reveal">
+        <article><span>2020 — 2024</span><h3>B.Tech, Computer Science & Engineering (AI & ML)</h3><p>Srinivasa Ramanujan Institute of Technology · CGPA 7.80</p></article>
+        <article><span>2018 - 2020</span><h3>Intermediate (MPC)</h3><p>Sri Venkateshwara Jr College &middot; CGPA 7.98</p></article>
+        <article><span>Achievement</span><h3>First place in an inter-college hackathon</h3><p>Won for an AI-based project.</p></article>
+        <article><span>Career milestone</span><h3>Promotion to backend development</h3><p>Promoted within six months of joining.</p></article>
+        <article><span>May - Jul 2023</span><h3>AWS Academy AI-ML Virtual Internship</h3></article>
+        <article><span>May - Sep 2023</span><h3>Wipro TalentNext — Java Full Stack Development</h3></article>
+        <article><span>Feb 2023</span><h3>Google IT Support · Coursera</h3></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact shell" id="contact">
+    <div class="contact-copy reveal"><div class="section-kicker">10 / Contact</div><h2>Building a backend or AI platform?</h2><p>I’m interested in roles where solid software engineering is part of the AI job—not separate from it.</p></div>
+    <div class="contact-actions reveal">
+      <a class="email-link" href="mailto:surajdesai.careers@gmail.com">surajdesai.careers@gmail.com <span>↗</span></a>
+      <button class="copy-button" type="button" data-copy-email data-email="surajdesai.careers@gmail.com">Copy email</button>
+      <a href="{{ url_for('static', filename='files/Suraj Desai Resume.docx') }}" download>Download resume (Word)</a>
+      <div class="social-links"><a href="https://www.linkedin.com/in/suraj-desai-155a9a264/" target="_blank" rel="noreferrer">LinkedIn ↗</a><a href="https://github.com/D-Suraj" target="_blank" rel="noreferrer">GitHub ↗</a><a href="{{ url_for('resume') }}" target="_blank">Resume ↗</a></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer shell"><span>© <span data-year></span> Suraj Desai</span><span>Built with Python · Flask · HTML · CSS · JavaScript</span><a href="#top">Back to top ↑</a></footer>
+<div class="toast" role="status" aria-live="polite" data-toast>Email copied</div>
+{% endblock %}
